@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Coding - Yuning Chen</title>
+    <style>
+        body, html { margin: 0; padding: 0; background-color: #111; color: #fff; font-family: 'Helvetica Neue', Arial, sans-serif; }
+        
+        .nav-header { padding: 4vw; border-bottom: 1px solid #333; margin-bottom: 50px; display: flex; justify-content: space-between; align-items: center; }
+        .category-title { font-size: 3rem; font-weight: normal; margin: 0; border-left: 2px solid #fff; padding-left: 20px; }
+        .back-btn { color: #888; text-decoration: none; font-size: 1rem; transition: color 0.3s; }
+        .back-btn:hover { color: #fff; }
+
+        .works-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4vw; padding: 0 4vw 10vh 4vw; max-width: 1600px; margin: 0 auto; }
+        
+        .work-item { text-decoration: none; color: inherit; display: block; }
+        .work-item:hover .work-cover { opacity: 0.8; }
+        
+        .work-cover { width: 100%; aspect-ratio: 1/1; background-color: #000; overflow: hidden; margin-bottom: 15px; transition: opacity 0.3s; }
+        .work-cover iframe, .work-cover img { width: 100%; height: 100%; object-fit: cover; border: none; pointer-events: none; }
+        
+        .work-info { display: flex; justify-content: space-between; font-size: 0.9rem; font-family: monospace; color: #ccc; }
+    </style>
+</head>
+<body>
+
+    <div class="nav-header">
+        <h1 class="category-title">Creative Coding</h1>
+        <a href="index.html#category" class="back-btn">Back to Categories / 返回</a>
+    </div>
+
+    <div class="works-grid">
+        <a href="project-force-vector.html" class="work-item">
+            <div class="work-cover">
+                <iframe src="https://editor.p5js.org/Raven2950/present/lGwVVvIjH" scrolling="no"></iframe>
+            </div>
+            <div class="work-info">
+                <span>Vector of Grief</span>
+                <span>2/2026</span>
+            </div>
+        </a>
+
+        <a href="project-rain-words.html" class="work-item">
+            <div class="work-cover" style="background: #2b2bdc;">
+               </div>
+            <div class="work-info">
+                <span>Rain my Words</span>
+                <span>3/2026</span>
+            </div>
+        </a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuning Chen - Creative Technologist</title>
+    <style>
+        :root { --bg-dark: #111111; --text-white: #ffffff; --text-gray: #666666; --text-dim: #333333; }
+        body, html { margin: 0; padding: 0; background-color: var(--bg-dark); color: var(--text-white); font-family: 'Helvetica Neue', Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+        ::-webkit-scrollbar { display: none; } /* 隐藏滚动条让视觉更干净 */
+        
+        /* === 核心：整页滑动覆盖逻辑 === */
+        .panel {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        /* --- Section 1: Frontpage --- */
+        #frontpage { z-index: 1; background-color: var(--bg-dark); display: flex; flex-direction: column; justify-content: space-between; padding: 4vw; box-sizing: border-box; }
+        .home-top { display: flex; justify-content: space-between; font-size: 14px; line-height: 1.5; }
+        .home-intro { max-width: 400px; color: #aaaaaa; }
+        .home-skills { text-align: right; color: var(--text-gray); }
+        .home-skills span { color: var(--text-white); display: block; margin-bottom: 8px; font-weight: bold; }
+        .home-name { font-size: 13vw; font-weight: 700; letter-spacing: -0.05em; line-height: 0.8; margin-bottom: -1vw; }
+
+        /* --- Section 2: Category --- */
+        #category { z-index: 2; background-color: #0a0a0a; display: flex; align-items: center; justify-content: center; }
+        .dir-list { list-style: none; padding: 0; text-align: center; }
+        .dir-item { margin: 20px 0; display: block; text-decoration: none; }
+        .dir-text { font-size: 4rem; font-weight: 600; color: var(--text-gray); cursor: pointer; transition: all 0.4s ease; text-decoration: none; display: inline-block;}
+        
+        /* 目录悬停交互逻辑 */
+        .dir-list:hover .dir-text { color: var(--text-dim); transform: scale(0.95); }
+        .dir-list .dir-item:hover .dir-text { color: var(--text-white); transform: scale(1.1); }
+
+        /* --- Section 3: Board (All Projects) --- */
+        /* 高度设为 min-height，如果项目很多，用户在这一屏内部可以正常向下滑动 */
+        #board { z-index: 3; box-shadow: 0 -20px 50px rgba(0,0,0,0.8); min-height: 100vh; background-color: #151515; padding: 10vh 0; position: relative; }
+        .board-title { text-align: center; font-size: 1rem; color: #888; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10vh; }
+        .scattered-grid { position: relative; max-width: 1400px; margin: 0 auto; height: 120vh; }
+        
+        .project-card { 
+            display: block; position: absolute; background: #000; 
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.4s ease; 
+            cursor: pointer; text-decoration: none; 
+        }
+        .project-card:hover { z-index: 100 !important; transform: scale(1.02); box-shadow: 0 30px 60px rgba(0,0,0,0.8); }
+        .cover-media { width: 100%; height: 100%; object-fit: cover; border: none; pointer-events: none; }
+
+        /* 根据你的 Figma 图精确定位卡片 */
+        .card-1 { top: 0%; left: 5%; width: 40%; aspect-ratio: 1/1; z-index: 10; }
+        .card-2 { top: 10%; right: 10%; width: 30%; aspect-ratio: 16/9; z-index: 5; }
+        .card-3 { top: 45%; left: 15%; width: 25%; aspect-ratio: 3/4; z-index: 15; background: #2b2bdc; } /* Rain my words 占位色 */
+    </style>
+</head>
+<body>
+
+    <section class="panel" id="frontpage">
+        <div class="home-top">
+            <div class="home-intro">
+                Hi there! I'm an interaction designer & creative technologist shaped by NYU ITP.<br><br>
+                Bridging urban systems and digital experiences, I build code-driven prototypes and generative media pipelines to bring bold interaction ideas to life.
+            </div>
+            <div class="home-skills">
+                <span>Disciplines</span> UI/UX Design<br> Creative Coding<br> Shader & WebGL<br> Spatial Computing
+            </div>
+        </div>
+        <div class="home-name">Yuning Chen</div>
+    </section>
+
+    <section class="panel" id="category">
+        <ul class="dir-list">
+            <li class="dir-item"><a href="category-uiux.html" class="dir-text">UI/UX Design</a></li>
+            <li class="dir-item"><a href="category-coding.html" class="dir-text">Creative Coding</a></li>
+            <li class="dir-item"><a href="#" class="dir-text">Shader</a></li>
+            <li class="dir-item"><a href="#" class="dir-text">Unity / Unreal</a></li>
+        </ul>
+    </section>
+
+    <section id="board">
+        <div class="board-title">Selected Projects | ALL</div>
+        <div class="scattered-grid">
+            <a href="project-force-vector.html" class="project-card card-1">
+                <iframe class="cover-media" src="https://editor.p5js.org/Raven2950/present/lGwVVvIjH" scrolling="no"></iframe>
+            </a>
+            
+            <a href="project-rain-words.html" class="project-card card-3">
+                <div style="width: 100%; height: 100%; color: white; padding: 20px; box-sizing: border-box; font-family: monospace;">RAIN<br>Type your rain...</div>
+            </a>
+            
+            <a href="#" class="project-card card-2">
+                <img src="placeholder.jpg" class="cover-media" style="background:#333;">
+            </a>
+        </div>
+    </section>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Force Vector of Grief - Yuning Chen</title>
+    <style>
+        /* ================= 详情页专属基础重置 ================= */
+        body, html {
+            margin: 0; padding: 0;
+            background-color: #050505; /* 纯净深色背景 */
+            color: #f0f0f0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .detail-wrapper {
+            max-width: 1400px; 
+            margin: 10vh auto; 
+            padding: 0 5vw;
+        }
+
+        /* ================= 返回按钮 ================= */
+        .back-link {
+            position: fixed; top: 4vh; right: 4vw;
+            font-size: 1rem; color: white; 
+            text-decoration: none; border-bottom: 1px solid white;
+            z-index: 1001; mix-blend-mode: difference;
+            transition: opacity 0.3s ease;
+        }
+        .back-link:hover { opacity: 0.6; }
+
+        /* ================= 顶部标题区 ================= */
+        .detail-header {
+            display: flex; justify-content: space-between; align-items: flex-end;
+            border-bottom: 1px solid #333; 
+            padding-bottom: 25px; 
+            margin-bottom: 50px;
+        }
+
+        .detail-header h1 { font-size: 4rem; margin: 0 0 10px 0; line-height: 1; letter-spacing: -0.02em; }
+        .detail-header p { color: #888; margin: 0; }
+
+        /* ================= 核心：五五分栏 ================= */
+        .detail-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 左边p5，右边文字，完美对半 */
+            gap: 5vw;
+        }
+
+        /* 左侧 p5 容器 */
+        .p5-container {
+            width: 100%; aspect-ratio: 1 / 1; background: #000;
+        }
+        .p5-container iframe { width: 100%; height: 100%; border: none; }
+
+        /* 右侧文案样式 */
+        .info-container {
+            display: flex; flex-direction: column;
+        }
+
+        .quote-block {
+            font-size: 1.3rem; line-height: 1.6; color: #ddd;
+            font-style: italic; margin-bottom: 40px; 
+            border-left: 2px solid #444; padding-left: 20px;
+        }
+
+        .concept-grid {
+            display: flex; flex-direction: column; gap: 30px;
+        }
+        
+        .concept-grid h3 { 
+            font-size: 0.8rem; text-transform: uppercase; color: #888; letter-spacing: 0.1em; margin: 0 0 10px 0; 
+        }
+        
+        .concept-grid p { 
+            font-size: 1rem; line-height: 1.6; color: #ccc; margin: 0; 
+        }
+
+        /* 针对小屏幕/手机的响应式调整 */
+        @media (max-width: 900px) {
+            .detail-body { grid-template-columns: 1fr; /* 手机上变为上下排列 */ }
+            .detail-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .detail-header h1 { font-size: 2.5rem; }
+            .detail-wrapper { margin: 15vh auto 10vh auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html#board" class="back-link">Back to Works / 返回</a>
+    
+    <div class="detail-wrapper">
+        
+        <div class="detail-header">
+            <div>
+                <h1>Force Vector of Grief</h1>
+                <p>p5.js / Interaction Design / Generative Text</p>
+            </div>
+            <div style="text-align: right; color: #666;">
+                <p>NYU ITP / 2024</p>
+            </div>
+        </div>
+
+        <div class="detail-body">
+            
+            <div class="p5-container">
+                <iframe src="https://editor.p5js.org/Raven2950/present/lGwVVvIjH" scrolling="no"></iframe>
+            </div>
+
+            <div class="info-container">
+                <div class="quote-block">
+                    "I have always loved solitude... Not the solitude of forests or empty roads, but the solitude that exists in the midst of others. There is a kind of hatred that does not cry out... It grew within me, imperceptibly."
+                </div>
+
+                <div class="concept-grid">
+                    <div>
+                        <h3>Concept</h3>
+                        <p>This project explores the physical manifestation of "grief" and "alienation". Text is no longer just a medium for narrative; it is transformed into dynamic particles trapped within simulated gravitational and fluid fields. The piece illustrates how emotional trauma creates invisible walls, quietly hardening and distancing us from the outside world.</p>
+                    </div>
+                    <div>
+                        <h3>Mechanism</h3>
+                        <p>Utilizing p5.js vector fields, I programmed the trajectory of a singular "teardrop". As this force source travels across the canvas, it disrupts the rigid structure of the text array, causing displacement, shearing, and repulsion. The letters struggle to return to their original coordinates using spring physics, symbolizing the lingering impact of a deeply rooted emotional force.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
