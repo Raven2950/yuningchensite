@@ -1,132 +1,284 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hans" data-site-lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Force Vector of Grief - Yuning Chen</title>
-    <style>
-        /* ================= 详情页专属基础重置 ================= */
-        body, html {
-            margin: 0; padding: 0;
-            background-color: #050505; /* 纯净深色背景 */
-            color: #f0f0f0;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            -webkit-font-smoothing: antialiased;
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Force Vector of Grief — Yuning Chen</title>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --text: #f5f5f5;
+      --muted: #8a8a8a;
+      --line: #2a2a2a;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--muted); }
+    a:hover { border-bottom-color: var(--text); }
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 2.5rem;
+    }
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+    .header-right {
+      text-align: right;
+      font-size: 0.9rem;
+    }
+    .header-right .meta { color: var(--muted); margin-top: 0.5rem; }
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-bottom: 0.65rem;
+      user-select: none;
+    }
+    .lang-switch .lang-sep {
+      color: var(--line);
+      font-weight: 300;
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      font: inherit;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 1px solid transparent;
+    }
+    .lang-btn:hover {
+      color: var(--text);
+    }
+    html[data-site-lang="zh"] .lang-btn[data-set-lang="zh"],
+    html[data-site-lang="en"] .lang-btn[data-set-lang="en"] {
+      color: var(--text);
+      border-bottom-color: var(--text);
+      cursor: default;
+    }
+    html[data-site-lang="zh"] .i18n[data-lang="en"],
+    html[data-site-lang="en"] .i18n[data-lang="zh"] {
+      display: none !important;
+    }
+    main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem 3rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      main { grid-template-columns: 1fr; }
+      .header-right { text-align: left; }
+    }
+    .embed-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #111;
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .embed-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .embed-caption {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+    blockquote {
+      margin: 0 0 2rem;
+      padding: 0;
+      font-style: italic;
+      color: #d4d4d4;
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+    .label {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 1.75rem 0 0.6rem;
+    }
+    .label:first-of-type { margin-top: 0; }
+    .prose { color: #c8c8c8; }
+    .prose p { margin: 0 0 1rem; }
+    .prose code {
+      font-size: 0.85em;
+      color: #aaa;
+    }
+  </style>
+  <script>
+    (function () {
+      try {
+        var L = localStorage.getItem("fvog-lang");
+        if (L === "en" || L === "zh") {
+          document.documentElement.setAttribute("data-site-lang", L);
+          document.documentElement.lang = L === "zh" ? "zh-Hans" : "en";
         }
-
-        .detail-wrapper {
-            max-width: 1400px; 
-            margin: 10vh auto; 
-            padding: 0 5vw;
-        }
-
-        /* ================= 返回按钮 ================= */
-        .back-link {
-            position: fixed; top: 4vh; right: 4vw;
-            font-size: 1rem; color: white; 
-            text-decoration: none; border-bottom: 1px solid white;
-            z-index: 1001; mix-blend-mode: difference;
-            transition: opacity 0.3s ease;
-        }
-        .back-link:hover { opacity: 0.6; }
-
-        /* ================= 顶部标题区 ================= */
-        .detail-header {
-            display: flex; justify-content: space-between; align-items: flex-end;
-            border-bottom: 1px solid #333; 
-            padding-bottom: 25px; 
-            margin-bottom: 50px;
-        }
-
-        .detail-header h1 { font-size: 4rem; margin: 0 0 10px 0; line-height: 1; letter-spacing: -0.02em; }
-        .detail-header p { color: #888; margin: 0; }
-
-        /* ================= 核心：五五分栏 ================= */
-        .detail-body {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* 左边p5，右边文字，完美对半 */
-            gap: 5vw;
-        }
-
-        /* 左侧 p5 容器 */
-        .p5-container {
-            width: 100%; aspect-ratio: 1 / 1; background: #000;
-        }
-        .p5-container iframe { width: 100%; height: 100%; border: none; }
-
-        /* 右侧文案样式 */
-        .info-container {
-            display: flex; flex-direction: column;
-        }
-
-        .quote-block {
-            font-size: 1.3rem; line-height: 1.6; color: #ddd;
-            font-style: italic; margin-bottom: 40px; 
-            border-left: 2px solid #444; padding-left: 20px;
-        }
-
-        .concept-grid {
-            display: flex; flex-direction: column; gap: 30px;
-        }
-        
-        .concept-grid h3 { 
-            font-size: 0.8rem; text-transform: uppercase; color: #888; letter-spacing: 0.1em; margin: 0 0 10px 0; 
-        }
-        
-        .concept-grid p { 
-            font-size: 1rem; line-height: 1.6; color: #ccc; margin: 0; 
-        }
-
-        /* 针对小屏幕/手机的响应式调整 */
-        @media (max-width: 900px) {
-            .detail-body { grid-template-columns: 1fr; /* 手机上变为上下排列 */ }
-            .detail-header { flex-direction: column; align-items: flex-start; gap: 20px; }
-            .detail-header h1 { font-size: 2.5rem; }
-            .detail-wrapper { margin: 15vh auto 10vh auto; }
-        }
-    </style>
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Force Vector of Grief</h1>
+        <p class="subtitle">
+          <span class="i18n" data-lang="zh">p5.js / 互动设计 / 生成文本</span>
+          <span class="i18n" data-lang="en">p5.js / Interaction Design / Generative Text</span>
+        </p>
+      </div>
+      <div class="header-right">
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" class="lang-btn" data-set-lang="zh" id="lang-zh">中文</button>
+          <span class="lang-sep" aria-hidden="true">/</span>
+          <button type="button" class="lang-btn" data-set-lang="en" id="lang-en">EN</button>
+        </div>
+        <p class="back-row">
+          <a href="index.html" class="i18n" data-lang="zh">返回作品</a>
+          <a href="index.html" class="i18n" data-lang="en">Back to Works</a>
+        </p>
+        <p class="meta">NYU ITP / 2024</p>
+      </div>
+    </header>
 
-    <a href="index.html#board" class="back-link">Back to Works / 返回</a>
-    
-    <div class="detail-wrapper">
-        
-        <div class="detail-header">
-            <div>
-                <h1>Force Vector of Grief</h1>
-                <p>p5.js / Interaction Design / Generative Text</p>
-            </div>
-            <div style="text-align: right; color: #666;">
-                <p>NYU ITP / 2024</p>
-            </div>
+    <main>
+      <section class="left">
+        <div class="embed-wrap">
+          <iframe
+            id="p5-embed"
+            title="p5.js sketch: Force Vector of Grief"
+            src="https://editor.p5js.org/Raven2950/full/lGwVVvIjH"
+            loading="lazy"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <p class="embed-caption">
+          <span class="i18n" data-lang="zh">p5.js「Vector of Grief」· editor.p5js.org</span>
+          <span class="i18n" data-lang="en">p5* Vector of Grief · editor.p5js.org</span>
+        </p>
+      </section>
+
+      <section class="right">
+        <blockquote cite="https://www.goodreads.com/book/show/The-Knot-of-Vipers">
+          “I have always loved solitude—not the solitude of forests or empty roads, but the solitude that exists in the midst of others. I have known how to surround myself with walls invisible to those who believed they knew me. They spoke to me; I answered them; and yet I remained apart, coiled within myself. There is a kind of hatred that does not cry out, that does not even dare to name itself. It hardens slowly, like a knot drawn tighter and tighter. I did not wake up one morning resolved to hate. It grew within me, imperceptibly, fed by disappointments, by wounded pride, by the small humiliations that no one else remembers.”
+        </blockquote>
+        <p class="quote-src i18n" data-lang="zh" style="font-size:0.8rem;color:var(--muted);margin:-1.25rem 0 1.5rem;">— 引自弗朗索瓦·莫里亚克《毒蛇结》</p>
+        <p class="quote-src i18n" data-lang="en" style="font-size:0.8rem;color:var(--muted);margin:-1.25rem 0 1.5rem;">— From François Mauriac, <em>The Knot of Vipers</em></p>
+
+        <p class="label">
+          <span class="i18n" data-lang="zh">概念</span>
+          <span class="i18n" data-lang="en">Concept</span>
+        </p>
+        <div class="prose">
+          <p class="i18n" data-lang="zh">
+            灵感来自弗朗索瓦·莫里亚克的小说《毒蛇结》（<em>The Knot of Vipers</em>），以及一首在 Apple Music 首页被推荐的音乐。最初想表现「泪滴落下时把文字推开、再慢慢回到原位」；试过让文字像粒子般散开，又觉得直接画出泪滴的形状偏重。最后改为：泪滴本身不画出来，而是由周围文字的<strong>负形</strong>勾勒出泪的轮廓——力量仍在，形态却隐去，更接近那种轻而持续的情绪压迫。
+          </p>
+          <p class="i18n" data-lang="zh">
+            作品把抽象的悲伤与疏离，落实成可计算的力学：一整块排版文本被拆成可动的字母粒子；一颗沿画面移动的「泪」作为力源，扰动字阵的秩序。位移之后，弹簧式的回复力让字符缓慢归位，暗示情绪过后仍残留在版面上的形变。
+          </p>
+          <p class="i18n" data-lang="en">
+            This project departs from François Mauriac’s <em>The Knot of Vipers</em> and a song surfaced on Apple Music. The initial idea was tears pushing text aside until it settled back; early prototypes scattered letters like particles, but drawing a tear shape felt heavy. The final approach leaves the tear invisible: <strong>negative space</strong> among the letters suggests its outline—force without spectacle.
+          </p>
+          <p class="i18n" data-lang="en">
+            Grief and alienation become a physical simulation: dense typeset text becomes letter particles; a moving force crosses the frame; spring-like return slowly pulls characters home, leaving the sense of strain that lingers after the emotion passes.
+          </p>
         </div>
 
-        <div class="detail-body">
-            
-            <div class="p5-container">
-                <iframe src="https://editor.p5js.org/Raven2950/present/lGwVVvIjH" scrolling="no"></iframe>
-            </div>
-
-            <div class="info-container">
-                <div class="quote-block">
-                    "I have always loved solitude... Not the solitude of forests or empty roads, but the solitude that exists in the midst of others. There is a kind of hatred that does not cry out... It grew within me, imperceptibly."
-                </div>
-
-                <div class="concept-grid">
-                    <div>
-                        <h3>Concept</h3>
-                        <p>This project explores the physical manifestation of "grief" and "alienation". Text is no longer just a medium for narrative; it is transformed into dynamic particles trapped within simulated gravitational and fluid fields. The piece illustrates how emotional trauma creates invisible walls, quietly hardening and distancing us from the outside world.</p>
-                    </div>
-                    <div>
-                        <h3>Mechanism</h3>
-                        <p>Utilizing p5.js vector fields, I programmed the trajectory of a singular "teardrop". As this force source travels across the canvas, it disrupts the rigid structure of the text array, causing displacement, shearing, and repulsion. The letters struggle to return to their original coordinates using spring physics, symbolizing the lingering impact of a deeply rooted emotional force.</p>
-                    </div>
-                </div>
-            </div>
-
+        <p class="label">
+          <span class="i18n" data-lang="zh">机制</span>
+          <span class="i18n" data-lang="en">Mechanism</span>
+        </p>
+        <div class="prose">
+          <p class="i18n" data-lang="zh">
+            使用 p5.js。种子文本来自上文引用的段落，通过 <code>buildDenseTextBlock</code> 铺成高密度文本块；每个非空格字符实例化为 <code>LetterParticle</code>，记录初始坐标 <code>home</code> 以便施加回复力。
+          </p>
+          <p class="i18n" data-lang="zh">
+            泪滴用 <code>teardropField</code> 近似：以尖端与腹部两个圆构造 signed distance，得到每个字母到泪形边界的距离与法线。当距离小于影响半径时，沿法线施加与距离平方成正比的排斥，并叠加向下的流动以及随泪滴水平速度变化的剪切。泪滴轨迹用 Perlin 噪声微调横向速度，使运动略带漂移。弹簧系数 <code>K_HOME</code> 与最大位移限制共同约束粒子，使受力后的文字能逐渐回到原位。
+          </p>
+          <p class="i18n" data-lang="en">
+            Built with p5.js. The seed text is the quoted passage above. <code>buildDenseTextBlock</code> lays a dense block; each non-space character is a <code>LetterParticle</code> with a stored <code>home</code> position for restorative forces.
+          </p>
+          <p class="i18n" data-lang="en">
+            <code>teardropField</code> approximates a teardrop with two circles (signed distance), yielding distance and normal per letter. Inside the influence radius, forces include radial repulsion (quadratic falloff), downward flow, and horizontal shear tied to the tear’s velocity; Perlin noise perturbs lateral drift. <code>K_HOME</code> and a displacement cap let letters settle after being pushed.
+          </p>
         </div>
-    </div>
-
+      </section>
+    </main>
+  </div>
+  <script>
+    (function () {
+      var KEY = "fvog-lang";
+      var root = document.documentElement;
+      function setLang(lang) {
+        if (lang !== "zh" && lang !== "en") return;
+        root.setAttribute("data-site-lang", lang);
+        root.lang = lang === "zh" ? "zh-Hans" : "en";
+        try {
+          localStorage.setItem(KEY, lang);
+        } catch (e) {}
+        var zhBtn = document.getElementById("lang-zh");
+        var enBtn = document.getElementById("lang-en");
+        if (zhBtn) {
+          zhBtn.setAttribute("aria-pressed", lang === "zh" ? "true" : "false");
+        }
+        if (enBtn) {
+          enBtn.setAttribute("aria-pressed", lang === "en" ? "true" : "false");
+        }
+        var iframe = document.getElementById("p5-embed");
+        if (iframe) {
+          iframe.title =
+            lang === "zh"
+              ? "p5.js 作品：Force Vector of Grief"
+              : "p5.js sketch: Force Vector of Grief";
+        }
+      }
+      var saved = null;
+      try {
+        saved = localStorage.getItem(KEY);
+      } catch (e) {}
+      setLang(saved === "en" || saved === "zh" ? saved : "zh");
+      document.querySelectorAll(".lang-btn[data-set-lang]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          setLang(btn.getAttribute("data-set-lang"));
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
