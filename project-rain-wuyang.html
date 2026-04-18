@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-Hans" data-site-lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>雨落无恙 — Yuning Chen</title>
+  <style>
+    :root {
+      --bg: #111111;
+      --text: #ffffff;
+      --muted: #888888;
+      --line: #2a2a2a;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--muted); }
+    a:hover { border-bottom-color: var(--text); }
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+    header {
+      display: flex; flex-wrap: wrap;
+      justify-content: space-between; align-items: flex-start;
+      gap: 2rem; padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--line); margin-bottom: 2.5rem;
+    }
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 600; letter-spacing: -0.02em;
+    }
+    .subtitle { color: var(--muted); font-size: 0.9rem; font-weight: 400; }
+    .header-right { text-align: right; font-size: 0.9rem; }
+    .header-right .meta { color: var(--muted); margin-top: 0.5rem; }
+    .lang-switch {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      margin-bottom: 0.65rem; user-select: none;
+    }
+    .lang-switch .lang-sep { color: var(--line); font-weight: 300; }
+    .lang-btn {
+      background: none; border: none; padding: 0; font: inherit;
+      color: var(--muted); cursor: pointer; border-bottom: 1px solid transparent;
+    }
+    .lang-btn:hover { color: var(--text); }
+    html[data-site-lang="zh"] .lang-btn[data-set-lang="zh"],
+    html[data-site-lang="en"] .lang-btn[data-set-lang="en"] {
+      color: var(--text); border-bottom-color: var(--text); cursor: default;
+    }
+    html[data-site-lang="zh"] .i18n[data-lang="en"],
+    html[data-site-lang="en"] .i18n[data-lang="zh"] { display: none !important; }
+
+    main { display: flex; flex-direction: column; gap: 2.75rem; }
+
+    .main-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem 3rem;
+      align-items: start;
+    }
+
+    .embed-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      background: #000;
+      overflow: hidden;
+    }
+    .embed-wrap iframe {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; border: 0;
+    }
+
+    .intro-text {
+      color: #cccccc;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin: 0 0 1.5rem;
+    }
+
+    .section { padding-top: 0.25rem; border-top: 1px solid var(--line); }
+    .label {
+      font-size: 0.7rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted);
+      margin: 0 0 0.6rem;
+    }
+    .prose { color: #aaaaaa; }
+    .prose p { margin: 0 0 1rem; }
+    .prose ul {
+      margin: 0 0 1rem;
+      padding-left: 1.2em;
+      list-style: disc;
+    }
+    .prose li { margin-bottom: 0.5rem; }
+    .prose code { font-size: 0.85em; color: #aaa; }
+
+    @media (max-width: 900px) {
+      .main-columns { grid-template-columns: 1fr; }
+      .header-right { text-align: left; }
+    }
+  </style>
+  <script>
+    (function () {
+      try {
+        var L = localStorage.getItem("ywyx-lang");
+        if (L === "en" || L === "zh") {
+          document.documentElement.setAttribute("data-site-lang", L);
+          document.documentElement.lang = L === "zh" ? "zh-Hans" : "en";
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>
+          <span class="i18n" data-lang="zh">雨落无恙</span>
+          <span class="i18n" data-lang="en">Still, After Rain</span>
+        </h1>
+        <p class="subtitle">
+          <span class="i18n" data-lang="zh">p5.js / 创意编程</span>
+          <span class="i18n" data-lang="en">p5.js / Creative Coding</span>
+        </p>
+      </div>
+      <div class="header-right">
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" class="lang-btn" data-set-lang="zh" id="lang-zh">中文</button>
+          <span class="lang-sep" aria-hidden="true">/</span>
+          <button type="button" class="lang-btn" data-set-lang="en" id="lang-en">EN</button>
+        </div>
+        <p class="back-row">
+          <a href="index.html" class="i18n" data-lang="zh">返回作品</a>
+          <a href="index.html" class="i18n" data-lang="en">Back to Works</a>
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <!-- Two-column: preview left, text right -->
+      <div class="main-columns">
+        <section class="left">
+          <div class="embed-wrap">
+            <iframe
+              id="p5-embed"
+              title="p5.js sketch: 雨落无恙"
+              src="https://editor.p5js.org/Raven2950/full/GzJzmyWJE"
+              loading="lazy"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </section>
+
+        <section class="right">
+          <p class="intro-text i18n" data-lang="zh">
+            下雨的时候我偶尔会想，记忆大概也是这样被淋坏的。不是一下子，是一点一点的。先是边角发软，然后某个人的声音开始模糊，某个下午的光线不再确定。你以为你记得很清楚的事情，隔了几年再去看，发现已经不太对了。但奇怪的是，你也没有真的忘掉。那些东西还在某个地方，散着，等你不经意地碰到一首歌、一张照片、一种气味，它们又会自己拼回来。拼出来的样子也许跟原来不一样了，但你认得出来。这个作品就是在做这件事。
+          </p>
+          <p class="intro-text i18n" data-lang="en">
+            Sometimes when it rains I think that's probably how memories get ruined too. Not all at once—little by little. First the edges go soft, then someone's voice starts to blur, then the light of a certain afternoon becomes uncertain. Things you thought you remembered clearly turn out to be not quite right when you revisit them years later. But the strange thing is, you haven't really forgotten. Those things are still there somewhere, scattered, waiting for you to stumble on a song, a photograph, a smell—and they piece themselves back together. The picture they form may not be the same as before, but you recognize it. That's what this work is about.
+          </p>
+
+          <p class="label" style="margin-top: 1.75rem;">
+            <span class="i18n" data-lang="zh">概念｜Inspiration</span>
+            <span class="i18n" data-lang="en">Concept · Inspiration</span>
+          </p>
+          <div class="prose">
+            <p class="i18n" data-lang="zh">
+              这是一个基于粒子系统的交互影像装置。图像不再是静态的像素矩阵，而是由成千上万个独立粒子重建的——每个粒子记住了自己的"归属位置"和原始色彩，具备速度、摩擦力和回归力。当外力消退，它们会自发地回到最初的位置，重新拼合出完整的画面。文字雨是唯一的扰动源：用户键入的每一个字符都会获得物理实体，从画面上方坠落，在抵达目标点时转化为一次冲击波。照片因此始终处于"被打扰—自我修复"的循环之中。
+            </p>
+            <p class="i18n" data-lang="en">
+              This is an interactive image installation built on a particle system. The image is no longer a static pixel matrix but is reconstructed from tens of thousands of independent particles—each one remembering its "home position" and original color, equipped with velocity, friction, and a restoring force. When the external force fades, they return on their own to where they started, reassembling the complete picture. Text rain is the sole source of disturbance: every character the user types acquires a physical body, falling from the top of the frame, and upon reaching its target transforms into a shockwave. The photograph thus remains in a perpetual cycle of disruption and self-repair.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <!-- 机制 (full width) -->
+      <section class="section">
+        <p class="label">
+          <span class="i18n" data-lang="zh">机制｜Mechanism</span>
+          <span class="i18n" data-lang="en">Mechanism</span>
+        </p>
+        <div class="prose">
+          <p class="i18n" data-lang="zh">系统由三层粒子协同构成：</p>
+          <p class="i18n" data-lang="en">The system is composed of three cooperating particle layers:</p>
+
+          <ul class="i18n" data-lang="zh">
+            <li>图像粒子（Particle）：照片被按 5px 间距采样，每个采样点生成一个粒子，保存目标坐标与 RGB 色值。粒子受到冲击时获得径向速度，之后以 0.96 的摩擦系数衰减，并在速度低于阈值时启动 0.012 的弹性回归力，缓慢回到原位。粒子偏离原位越远，透明度越低，制造出图像在冲击处"溶解"的视觉效果。</li>
+            <li>文字雨滴（TextDrop）：每隔固定帧数从画面顶部生成，以 2.5–4.5 的初速度下落，并施加微弱阻尼（0.997）模拟空气阻力。每个雨滴携带用户当前输入的文字，字符沿竖直方向排列，透明度从头到尾递减，形成拖尾效果。雨滴到达随机目标高度后触发冲击事件并重新刷新。</li>
+            <li>涟漪环（RippleRing）：每次冲击生成 2–3 个椭圆环，以 0.22 的纵横比模拟俯视水面的透视压缩。椭圆半径持续扩张，透明度线性衰减至消亡。同时，冲击点周围 110–180px 范围内的图像粒子被施加径向推力，力度随距离衰减，形成从中心向外扩散的涟漪位移。</li>
+          </ul>
+          <ul class="i18n" data-lang="en">
+            <li>Image particles (Particle): the photo is sampled at 5px intervals; each sample point spawns a particle storing its target coordinates and RGB color. Upon impact, particles receive radial velocity, then decelerate with a friction coefficient of 0.96; when speed drops below a threshold, a 0.012 elastic restoring force activates, slowly pulling them back home. The farther a particle drifts, the more transparent it becomes, creating a visual effect of the image "dissolving" at the point of impact.</li>
+            <li>Text raindrops (TextDrop): generated at fixed frame intervals from the top of the canvas, falling at initial speeds of 2.5–4.5, with gentle damping (0.997) simulating air resistance. Each drop carries the user's current input text, characters arranged vertically with opacity decreasing from head to tail, forming a trailing effect. When a drop reaches its random target height, it triggers an impact event and respawns.</li>
+            <li>Ripple rings (RippleRing): each impact generates 2–3 elliptical rings with an aspect ratio of 0.22, simulating perspective compression of a top-down water surface. Ring radii expand continuously while opacity decays linearly until they vanish. Simultaneously, image particles within 110–180px of the impact point receive radial impulse that diminishes with distance, producing ripple-like displacement spreading outward from the center.</li>
+          </ul>
+
+          <p class="i18n" data-lang="zh">
+            三层粒子通过"撞击事件"级联：雨滴的终点触发涟漪环的诞生和图像粒子的散开，而图像粒子的回归力又让画面在数秒内自行愈合——如同记忆被触碰后的短暂失焦与重新聚拢。
+          </p>
+          <p class="i18n" data-lang="en">
+            The three layers cascade through "impact events": a raindrop's endpoint triggers the birth of ripple rings and the scattering of image particles, while the particles' restoring force lets the image heal itself within seconds—like a memory briefly losing focus after being touched, then slowly refocusing.
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script>
+    (function () {
+      var KEY = "ywyx-lang";
+      var root = document.documentElement;
+      function setLang(lang) {
+        if (lang !== "zh" && lang !== "en") return;
+        root.setAttribute("data-site-lang", lang);
+        root.lang = lang === "zh" ? "zh-Hans" : "en";
+        try { localStorage.setItem(KEY, lang); } catch (e) {}
+        document.getElementById("lang-zh")?.setAttribute("aria-pressed", lang === "zh" ? "true" : "false");
+        document.getElementById("lang-en")?.setAttribute("aria-pressed", lang === "en" ? "true" : "false");
+      }
+      var saved = null;
+      try { saved = localStorage.getItem(KEY); } catch (e) {}
+      setLang(saved === "en" || saved === "zh" ? saved : "zh");
+      document.querySelectorAll(".lang-btn[data-set-lang]").forEach(function (btn) {
+        btn.addEventListener("click", function () { setLang(btn.getAttribute("data-set-lang")); });
+      });
+    })();
+  </script>
+</body>
+</html>

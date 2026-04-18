@@ -6,9 +6,10 @@
   <title>Force Vector of Grief — Yuning Chen</title>
   <style>
     :root {
-      --bg: #0a0a0a;
-      --text: #f5f5f5;
-      --muted: #8a8a8a;
+      --bg: #111111;
+      --bg-panel: #151515;
+      --text: #ffffff;
+      --muted: #888888;
       --line: #2a2a2a;
       --max: 1180px;
     }
@@ -89,20 +90,36 @@
       display: none !important;
     }
     main {
+      display: flex;
+      flex-direction: column;
+      gap: 2.75rem;
+    }
+    .main-columns {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 2.5rem 3rem;
       align-items: start;
     }
     @media (max-width: 900px) {
-      main { grid-template-columns: 1fr; }
+      .main-columns { grid-template-columns: 1fr; }
       .header-right { text-align: left; }
     }
+    /* PDF：机制单独一块，从最左缘起排 */
+    .mechanism-section {
+      width: 100%;
+      text-align: left;
+      padding-top: 0.25rem;
+      border-top: 1px solid var(--line);
+    }
+    .mechanism-section .label {
+      margin-top: 0;
+    }
+    /* 与 index.html board 中 card-1 一致：正方形 p5 预览 */
     .embed-wrap {
       position: relative;
       width: 100%;
-      aspect-ratio: 4 / 3;
-      background: #111;
+      aspect-ratio: 1 / 1;
+      background: #000;
       border: 1px solid var(--line);
       overflow: hidden;
     }
@@ -119,12 +136,18 @@
       margin-top: 0.5rem;
     }
     blockquote {
-      margin: 0 0 2rem;
+      margin: 0 0 1rem;
       padding: 0;
       font-style: italic;
-      color: #d4d4d4;
+      color: #cccccc;
       font-size: 0.95rem;
       line-height: 1.75;
+    }
+    blockquote p {
+      margin: 0 0 1rem;
+    }
+    blockquote p:last-child {
+      margin-bottom: 0;
     }
     .label {
       font-size: 0.7rem;
@@ -134,11 +157,16 @@
       margin: 1.75rem 0 0.6rem;
     }
     .label:first-of-type { margin-top: 0; }
-    .prose { color: #c8c8c8; }
+    .prose { color: #aaaaaa; }
     .prose p { margin: 0 0 1rem; }
     .prose code {
       font-size: 0.85em;
       color: #aaa;
+    }
+    .quote-src {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin: 0 0 1.5rem;
     }
   </style>
   <script>
@@ -159,8 +187,8 @@
       <div>
         <h1>Force Vector of Grief</h1>
         <p class="subtitle">
-          <span class="i18n" data-lang="zh">p5.js / 互动设计 / 生成文本</span>
-          <span class="i18n" data-lang="en">p5.js / Interaction Design / Generative Text</span>
+          <span class="i18n" data-lang="zh">p5.js / 创意编程</span>
+          <span class="i18n" data-lang="en">p5.js / Creative Coding</span>
         </p>
       </div>
       <div class="header-right">
@@ -173,72 +201,89 @@
           <a href="index.html" class="i18n" data-lang="zh">返回作品</a>
           <a href="index.html" class="i18n" data-lang="en">Back to Works</a>
         </p>
-        <p class="meta">NYU ITP / 2024</p>
+        <p class="meta">Personal Project / 2026.2</p>
       </div>
     </header>
 
     <main>
+    <div class="main-columns">
       <section class="left">
         <div class="embed-wrap">
           <iframe
             id="p5-embed"
             title="p5.js sketch: Force Vector of Grief"
-            src="https://editor.p5js.org/Raven2950/full/lGwVVvIjH"
+            src="https://editor.p5js.org/Raven2950/present/lGwVVvIjH"
             loading="lazy"
             allowfullscreen
           ></iframe>
         </div>
         <p class="embed-caption">
           <span class="i18n" data-lang="zh">p5.js「Vector of Grief」· editor.p5js.org</span>
-          <span class="i18n" data-lang="en">p5* Vector of Grief · editor.p5js.org</span>
+          <span class="i18n" data-lang="en">p5.js “Vector of Grief” · editor.p5js.org</span>
         </p>
       </section>
 
       <section class="right">
-        <blockquote cite="https://www.goodreads.com/book/show/The-Knot-of-Vipers">
-          “I have always loved solitude—not the solitude of forests or empty roads, but the solitude that exists in the midst of others. I have known how to surround myself with walls invisible to those who believed they knew me. They spoke to me; I answered them; and yet I remained apart, coiled within myself. There is a kind of hatred that does not cry out, that does not even dare to name itself. It hardens slowly, like a knot drawn tighter and tighter. I did not wake up one morning resolved to hate. It grew within me, imperceptibly, fed by disappointments, by wounded pride, by the small humiliations that no one else remembers.”
+        <blockquote>
+          <span class="i18n" data-lang="zh">
+            <p>我了解我的这颗心，这颗如蛇结一般的心：它被无数蜂蛇压得难以喘息，被其毒液浸透至深；它在乱窜蠕动的蜂蛇之下，依旧跃动不息。这蛇结无法松解，只有尖刀与利刃才能将其斩断：“我并没有带来和平，而是带来了刀剑。”</p>
+            <p>为何不同我说话呢？为何你从不与我交流？说不定你的某句言语便能动我心弦呢？今夜，我发觉就算我们重新开始也还不算太晚。若是我在生前，就把这些文字拿给你看呢？若是我以上帝的名义恳求你读完呢？若是你甫一阅毕，我便候在你身旁呢？</p>
+          </span>
+          <span class="i18n" data-lang="en">
+            <p>I know this heart of mine—this heart, coiled like a knot of vipers: crushed breathless by countless serpents, steeped through with their venom; yet beneath those serpents writhing in chaos, it still beats on. This knot cannot be undone—only knives and blades can cut it through: “I did not come to bring peace, but a sword.”</p>
+            <p>Why do you not speak with me? Why do you never talk with me? Perhaps a single sentence from you could stir my heart. Tonight I feel it is not yet too late for us to begin again. What if, while I still lived, I had shown you these words? What if I begged you, in God’s name, to read them through? What if, the moment you finished, I were waiting at your side?</p>
+          </span>
         </blockquote>
-        <p class="quote-src i18n" data-lang="zh" style="font-size:0.8rem;color:var(--muted);margin:-1.25rem 0 1.5rem;">— 引自弗朗索瓦·莫里亚克《毒蛇结》</p>
-        <p class="quote-src i18n" data-lang="en" style="font-size:0.8rem;color:var(--muted);margin:-1.25rem 0 1.5rem;">— From François Mauriac, <em>The Knot of Vipers</em></p>
+        <p class="quote-src i18n" data-lang="zh">——弗朗索瓦·莫里亚克《蛇结》</p>
+        <p class="quote-src i18n" data-lang="en">— François Mauriac, <em>The Knot of Vipers</em> (<em>Le Nœud de vipères</em>)</p>
 
         <p class="label">
-          <span class="i18n" data-lang="zh">概念</span>
-          <span class="i18n" data-lang="en">Concept</span>
+          <span class="i18n" data-lang="zh">概念｜灵感</span>
+          <span class="i18n" data-lang="en">Concept · Inspiration</span>
         </p>
         <div class="prose">
           <p class="i18n" data-lang="zh">
-            灵感来自弗朗索瓦·莫里亚克的小说《毒蛇结》（<em>The Knot of Vipers</em>），以及一首在 Apple Music 首页被推荐的音乐。最初想表现「泪滴落下时把文字推开、再慢慢回到原位」；试过让文字像粒子般散开，又觉得直接画出泪滴的形状偏重。最后改为：泪滴本身不画出来，而是由周围文字的<strong>负形</strong>勾勒出泪的轮廓——力量仍在，形态却隐去，更接近那种轻而持续的情绪压迫。
+            灵感来自弗朗索瓦·莫里亚克的小说《蛇结》，以及一首在 Apple Music 首页被推荐的音乐。
+          </p>
+          <p class="i18n" data-lang="en">
+            The inspiration comes from François Mauriac’s novel <em>The Knot of Vipers</em>, and a piece of music that was recommended on the Apple Music homepage.
           </p>
           <p class="i18n" data-lang="zh">
-            作品把抽象的悲伤与疏离，落实成可计算的力学：一整块排版文本被拆成可动的字母粒子；一颗沿画面移动的「泪」作为力源，扰动字阵的秩序。位移之后，弹簧式的回复力让字符缓慢归位，暗示情绪过后仍残留在版面上的形变。
+            最初想表现「泪滴落下时把文字推开、再慢慢回到原位」；试过让文字像粒子般散开，又觉得直接画出泪滴的形状偏重。最后改为：泪滴本身不画出来，而是由周围文字的<strong>负形</strong>勾勒出泪的轮廓——力量仍在，形态却隐去，更接近那种轻而持续的情绪压迫。
           </p>
           <p class="i18n" data-lang="en">
-            This project departs from François Mauriac’s <em>The Knot of Vipers</em> and a song surfaced on Apple Music. The initial idea was tears pushing text aside until it settled back; early prototypes scattered letters like particles, but drawing a tear shape felt heavy. The final approach leaves the tear invisible: <strong>negative space</strong> among the letters suggests its outline—force without spectacle.
-          </p>
-          <p class="i18n" data-lang="en">
-            Grief and alienation become a physical simulation: dense typeset text becomes letter particles; a moving force crosses the frame; spring-like return slowly pulls characters home, leaving the sense of strain that lingers after the emotion passes.
-          </p>
-        </div>
-
-        <p class="label">
-          <span class="i18n" data-lang="zh">机制</span>
-          <span class="i18n" data-lang="en">Mechanism</span>
-        </p>
-        <div class="prose">
-          <p class="i18n" data-lang="zh">
-            使用 p5.js。种子文本来自上文引用的段落，通过 <code>buildDenseTextBlock</code> 铺成高密度文本块；每个非空格字符实例化为 <code>LetterParticle</code>，记录初始坐标 <code>home</code> 以便施加回复力。
+            At first I wanted to show tears pushing the text aside as they fell, then slowly settling back; I tried scattering the letters like particles, but drawing the tear itself felt too heavy. In the end the tear is not drawn: <strong>negative space</strong> among the letters suggests its outline—force remains while the form withdraws, closer to that light yet persistent emotional pressure.
           </p>
           <p class="i18n" data-lang="zh">
-            泪滴用 <code>teardropField</code> 近似：以尖端与腹部两个圆构造 signed distance，得到每个字母到泪形边界的距离与法线。当距离小于影响半径时，沿法线施加与距离平方成正比的排斥，并叠加向下的流动以及随泪滴水平速度变化的剪切。泪滴轨迹用 Perlin 噪声微调横向速度，使运动略带漂移。弹簧系数 <code>K_HOME</code> 与最大位移限制共同约束粒子，使受力后的文字能逐渐回到原位。
+            我把抽象的悲伤与疏离，落实成可计算的力学：一整块排版文本被拆成可动的字母粒子；一颗沿画面移动的「泪」作为力源，扰动字阵的秩序。位移之后，弹簧式的回复力让字符缓慢归位，暗示情绪过后仍残留在版面上的形变。
           </p>
           <p class="i18n" data-lang="en">
-            Built with p5.js. The seed text is the quoted passage above. <code>buildDenseTextBlock</code> lays a dense block; each non-space character is a <code>LetterParticle</code> with a stored <code>home</code> position for restorative forces.
-          </p>
-          <p class="i18n" data-lang="en">
-            <code>teardropField</code> approximates a teardrop with two circles (signed distance), yielding distance and normal per letter. Inside the influence radius, forces include radial repulsion (quadratic falloff), downward flow, and horizontal shear tied to the tear’s velocity; Perlin noise perturbs lateral drift. <code>K_HOME</code> and a displacement cap let letters settle after being pushed.
+            I turn abstract grief and alienation into computable mechanics: a full block of typeset text is broken into movable letter particles; a “tear” moving across the frame acts as a force that disturbs the grid. After displacement, spring-like restoring forces slowly return the characters, suggesting the strain that lingers on the layout once the feeling has passed.
           </p>
         </div>
       </section>
+    </div>
+
+    <section class="mechanism-section" aria-labelledby="label-mechanism">
+      <p class="label" id="label-mechanism">
+        <span class="i18n" data-lang="zh">机制</span>
+        <span class="i18n" data-lang="en">Mechanism</span>
+      </p>
+      <div class="prose mechanism-prose">
+        <p class="i18n" data-lang="zh">
+          使用 p5.js。种子文本来自上文引用的段落，通过 <code>buildDenseTextBlock</code> 铺成高密度文本块；每个非空格字符实例化为 <code>LetterParticle</code>，记录初始坐标 <code>home</code> 以便施加回复力。
+        </p>
+        <p class="i18n" data-lang="en">
+          Built with p5.js. The seed text is the passage quoted above. <code>buildDenseTextBlock</code> lays a dense text block; each non-space character becomes a <code>LetterParticle</code> with a stored <code>home</code> position for restorative forces.
+        </p>
+        <p class="i18n" data-lang="zh">
+          泪滴用 <code>teardropField</code> 近似：以尖端与腹部两个圆构造 signed distance，得到每个字母到泪形边界的距离与法线。当距离小于影响半径时，沿法线施加与距离平方成正比的排斥，并叠加向下的流动以及随泪滴水平速度变化的剪切。泪滴轨迹用 Perlin 噪声微调横向速度，使运动略带漂移。弹簧系数 <code>K_HOME</code> 与最大位移限制共同约束粒子，使受力后的文字能逐渐回到原位。
+        </p>
+        <p class="i18n" data-lang="en">
+          <code>teardropField</code> approximates the tear with two circles (tip and belly) via signed distance, giving each letter its distance to the tear boundary and the normal. When the distance falls inside the radius of influence, repulsion along the normal scales with the square of the distance, combined with downward flow and shear tied to the tear’s horizontal velocity. Perlin noise perturbs lateral drift along the path. The spring constant <code>K_HOME</code> and a maximum displacement cap constrain the particles so the text can gradually return after being pushed.
+        </p>
+      </div>
+    </section>
     </main>
   </div>
   <script>

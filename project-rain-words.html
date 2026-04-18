@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-Hans" data-site-lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rain my Words — Yuning Chen</title>
+  <style>
+    :root {
+      --bg: #111111;
+      --text: #ffffff;
+      --muted: #888888;
+      --line: #2a2a2a;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--muted); }
+    a:hover { border-bottom-color: var(--text); }
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+    header {
+      display: flex; flex-wrap: wrap;
+      justify-content: space-between; align-items: flex-start;
+      gap: 2rem; padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--line); margin-bottom: 2.5rem;
+    }
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 600; letter-spacing: -0.02em;
+    }
+    .subtitle { color: var(--muted); font-size: 0.9rem; font-weight: 400; }
+    .header-right { text-align: right; font-size: 0.9rem; }
+    .header-right .meta { color: var(--muted); margin-top: 0.5rem; }
+    .lang-switch {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      margin-bottom: 0.65rem; user-select: none;
+    }
+    .lang-switch .lang-sep { color: var(--line); font-weight: 300; }
+    .lang-btn {
+      background: none; border: none; padding: 0; font: inherit;
+      color: var(--muted); cursor: pointer; border-bottom: 1px solid transparent;
+    }
+    .lang-btn:hover { color: var(--text); }
+    html[data-site-lang="zh"] .lang-btn[data-set-lang="zh"],
+    html[data-site-lang="en"] .lang-btn[data-set-lang="en"] {
+      color: var(--text); border-bottom-color: var(--text); cursor: default;
+    }
+    html[data-site-lang="zh"] .i18n[data-lang="en"],
+    html[data-site-lang="en"] .i18n[data-lang="zh"] { display: none !important; }
+
+    main { display: flex; flex-direction: column; gap: 2.75rem; }
+
+    .main-columns {
+      display: grid;
+      grid-template-columns: 55fr 40fr;
+      gap: 2.5rem 3rem;
+      align-items: start;
+    }
+
+    .embed-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #000;
+      overflow: hidden;
+    }
+    .embed-wrap iframe {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; border: 0;
+    }
+
+    .intro-text {
+      color: #cccccc;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin: 0 0 1.5rem;
+    }
+
+    .section { padding-top: 0.25rem; border-top: 1px solid var(--line); }
+    .label {
+      font-size: 0.7rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted);
+      margin: 0 0 0.6rem;
+    }
+    .section-inline .label { margin-top: 1.75rem; border: none; padding: 0; }
+    .prose { color: #aaaaaa; }
+    .prose p { margin: 0 0 1rem; }
+    .prose ul {
+      margin: 0 0 1rem;
+      padding-left: 1.2em;
+      list-style: disc;
+    }
+    .prose li { margin-bottom: 0.5rem; }
+    .prose code { font-size: 0.85em; color: #aaa; }
+
+    @media (max-width: 900px) {
+      .main-columns { grid-template-columns: 1fr; }
+      .header-right { text-align: left; }
+    }
+  </style>
+  <script>
+    (function () {
+      try {
+        var L = localStorage.getItem("rmw-lang");
+        if (L === "en" || L === "zh") {
+          document.documentElement.setAttribute("data-site-lang", L);
+          document.documentElement.lang = L === "zh" ? "zh-Hans" : "en";
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Rain my Words</h1>
+        <p class="subtitle">
+          <span class="i18n" data-lang="zh">p5.js / 创意编程</span>
+          <span class="i18n" data-lang="en">p5.js / Creative Coding</span>
+        </p>
+      </div>
+      <div class="header-right">
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" class="lang-btn" data-set-lang="zh" id="lang-zh">中文</button>
+          <span class="lang-sep" aria-hidden="true">/</span>
+          <button type="button" class="lang-btn" data-set-lang="en" id="lang-en">EN</button>
+        </div>
+        <p class="back-row">
+          <a href="index.html" class="i18n" data-lang="zh">返回作品</a>
+          <a href="index.html" class="i18n" data-lang="en">Back to Works</a>
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <!-- Two-column: tall preview left, text right -->
+      <div class="main-columns">
+        <section class="left">
+          <div class="embed-wrap">
+            <iframe
+              id="p5-embed"
+              title="p5.js sketch: Rain my Words"
+              src="https://editor.p5js.org/Raven2950/full/Z4D85Dntf"
+              loading="lazy"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </section>
+
+        <section class="right">
+          <p class="intro-text i18n" data-lang="zh">
+            我们说话时，常常忘记语言是有重量的。一句话说出口，它会下坠、会撞击、会在某个人心里泛起涟漪。本作品将这个隐喻变成了可交互的视觉体验：你在输入框中敲下任意文字，它们就会化作雨滴，带着质量和速度从天而降，落入水面，荡开一圈圈涟漪。
+          </p>
+          <p class="intro-text i18n" data-lang="en">
+            When we speak, we often forget that language has weight. A sentence, once uttered, falls—it strikes, it sends ripples through someone's mind. This work turns that metaphor into an interactive visual experience: type anything into the input field, and your words become raindrops, falling with mass and velocity from the sky, splashing into the water, sending ripples outward in widening circles.
+          </p>
+
+          <p class="label" style="margin-top: 1.75rem;">
+            <span class="i18n" data-lang="zh">概念｜Inspiration</span>
+            <span class="i18n" data-lang="en">Concept · Inspiration</span>
+          </p>
+          <div class="prose">
+            <p class="i18n" data-lang="zh">
+              这是一个基于粒子系统的文字雨模拟。在粒子系统框架中，每个粒子拥有位置、速度、加速度和生命周期——本作品将这些物理属性赋予了文字本身。每一个字符不再是屏幕上静止的符号，而是一个受力运动的粒子：它有质量，会被重力拉扯，会在到达目标时消散并转化为另一种形态——涟漪。用户的输入行为成为粒子系统的"发射源"，打字这一日常动作被转化为一场持续的、可控的雨。
+            </p>
+            <p class="i18n" data-lang="en">
+              This is a text-rain simulation built on a particle system. Within the particle system framework, each particle possesses position, velocity, acceleration, and lifespan—this work grants those physical properties to text itself. Each character is no longer a static symbol on screen but a force-driven particle: it has mass, is pulled by gravity, and upon reaching its target dissolves into another form—a ripple. The user's typing becomes the particle system's emitter; the everyday act of typing is transformed into a continuous, controllable rain.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <!-- 机制 (full width) -->
+      <section class="section">
+        <p class="label">
+          <span class="i18n" data-lang="zh">机制｜Mechanism</span>
+          <span class="i18n" data-lang="en">Mechanism</span>
+        </p>
+        <div class="prose">
+          <p class="i18n" data-lang="zh">系统由两类粒子构成：</p>
+          <p class="i18n" data-lang="en">The system consists of two particle types:</p>
+
+          <ul class="i18n" data-lang="zh">
+            <li>文字雨滴（TextDrop）：每个雨滴是一个完整的粒子，携带位置、速度、加速度和质量。每帧受到恒定向下的重力（0.06），通过牛顿第二定律 <code>a = F / m</code> 计算加速度，质量越大的粒子下落越沉稳。速度经过 0.995 的阻尼衰减以保持视觉稳定。每个雨滴在生成时被分配一个随机的"目标高度"，到达后触发涟漪并重新从画面上方刷新，携带用户最新输入的文字重新降落。</li>
+            <li>涟漪（Ripple）：雨滴触地时，根据撞击速度计算涟漪强度——速度越快，扩散越剧烈。涟漪以椭圆形向外扩展，透明度随生命值线性衰减直至消亡，模拟水面波纹的自然消散。</li>
+          </ul>
+          <ul class="i18n" data-lang="en">
+            <li>TextDrop: each raindrop is a full particle carrying position, velocity, acceleration, and mass. Every frame it receives constant downward gravity (0.06); acceleration is computed via Newton's second law <code>a = F / m</code>, so heavier particles fall more steadily. Velocity is damped by 0.995 each frame for visual stability. Each drop is assigned a random "target height" at spawn; upon reaching it, a ripple is triggered and the drop respawns from above carrying the latest input text.</li>
+            <li>Ripple: when a drop lands, ripple intensity is calculated from impact speed—faster means more dramatic spread. Ripples expand as ellipses with opacity decaying linearly until they vanish, simulating the natural dissipation of surface waves.</li>
+          </ul>
+
+          <p class="i18n" data-lang="zh">
+            两类粒子通过"撞击事件"耦合：雨滴的死亡即涟漪的诞生，形成一个持续循环的粒子生态。
+          </p>
+          <p class="i18n" data-lang="en">
+            The two particle types are coupled through "impact events": a raindrop's death is a ripple's birth, forming a continuously cycling particle ecology.
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script>
+    (function () {
+      var KEY = "rmw-lang";
+      var root = document.documentElement;
+      function setLang(lang) {
+        if (lang !== "zh" && lang !== "en") return;
+        root.setAttribute("data-site-lang", lang);
+        root.lang = lang === "zh" ? "zh-Hans" : "en";
+        try { localStorage.setItem(KEY, lang); } catch (e) {}
+        document.getElementById("lang-zh")?.setAttribute("aria-pressed", lang === "zh" ? "true" : "false");
+        document.getElementById("lang-en")?.setAttribute("aria-pressed", lang === "en" ? "true" : "false");
+      }
+      var saved = null;
+      try { saved = localStorage.getItem(KEY); } catch (e) {}
+      setLang(saved === "en" || saved === "zh" ? saved : "zh");
+      document.querySelectorAll(".lang-btn[data-set-lang]").forEach(function (btn) {
+        btn.addEventListener("click", function () { setLang(btn.getAttribute("data-set-lang")); });
+      });
+    })();
+  </script>
+</body>
+</html>

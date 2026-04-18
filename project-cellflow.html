@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-Hans" data-site-lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>胞流 CellFlow — Yuning Chen</title>
+  <style>
+    :root {
+      --bg: #111111;
+      --text: #ffffff;
+      --muted: #888888;
+      --line: #2a2a2a;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--muted); }
+    a:hover { border-bottom-color: var(--text); }
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+    header {
+      display: flex; flex-wrap: wrap;
+      justify-content: space-between; align-items: flex-start;
+      gap: 2rem; padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--line); margin-bottom: 2.5rem;
+    }
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 600; letter-spacing: -0.02em;
+    }
+    .subtitle { color: var(--muted); font-size: 0.9rem; font-weight: 400; }
+    .header-right { text-align: right; font-size: 0.9rem; }
+    .header-right .meta { color: var(--muted); margin-top: 0.5rem; }
+    .lang-switch {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      margin-bottom: 0.65rem; user-select: none;
+    }
+    .lang-switch .lang-sep { color: var(--line); font-weight: 300; }
+    .lang-btn {
+      background: none; border: none; padding: 0; font: inherit;
+      color: var(--muted); cursor: pointer; border-bottom: 1px solid transparent;
+    }
+    .lang-btn:hover { color: var(--text); }
+    html[data-site-lang="zh"] .lang-btn[data-set-lang="zh"],
+    html[data-site-lang="en"] .lang-btn[data-set-lang="en"] {
+      color: var(--text); border-bottom-color: var(--text); cursor: default;
+    }
+    html[data-site-lang="zh"] .i18n[data-lang="en"],
+    html[data-site-lang="en"] .i18n[data-lang="zh"] { display: none !important; }
+
+    main { display: flex; flex-direction: column; gap: 2.5rem; }
+
+    .embed-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 2 / 1;
+      background: #000;
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .embed-wrap iframe {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; border: 0;
+    }
+    .embed-caption {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    .intro-quote {
+      border-left: 2px solid #444;
+      padding-left: 1.25rem;
+      margin: 2rem 0 0;
+      color: #cccccc;
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+    .intro-quote p { margin: 0 0 0.75rem; }
+    .intro-quote p:last-child { margin-bottom: 0; }
+
+    .section { padding-top: 0.25rem; border-top: 1px solid var(--line); }
+    .label {
+      font-size: 0.7rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted);
+      margin: 0 0 0.6rem;
+    }
+    .prose { color: #aaaaaa; }
+    .prose p { margin: 0 0 1rem; }
+    .prose ul {
+      margin: 0 0 1rem;
+      padding-left: 1.2em;
+      list-style: disc;
+    }
+    .prose li { margin-bottom: 0.5rem; }
+    .prose code { font-size: 0.85em; color: #aaa; }
+
+    @media (max-width: 900px) {
+      .header-right { text-align: left; }
+    }
+  </style>
+  <script>
+    (function () {
+      try {
+        var L = localStorage.getItem("cf-lang");
+        if (L === "en" || L === "zh") {
+          document.documentElement.setAttribute("data-site-lang", L);
+          document.documentElement.lang = L === "zh" ? "zh-Hans" : "en";
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>
+          <span class="i18n" data-lang="zh">胞流｜CellFlow</span>
+          <span class="i18n" data-lang="en">CellFlow</span>
+        </h1>
+        <p class="subtitle">
+          <span class="i18n" data-lang="zh">p5.js / 创意编程</span>
+          <span class="i18n" data-lang="en">p5.js / Creative Coding</span>
+        </p>
+      </div>
+      <div class="header-right">
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" class="lang-btn" data-set-lang="zh" id="lang-zh">中文</button>
+          <span class="lang-sep" aria-hidden="true">/</span>
+          <button type="button" class="lang-btn" data-set-lang="en" id="lang-en">EN</button>
+        </div>
+        <p class="back-row">
+          <a href="index.html" class="i18n" data-lang="zh">返回作品</a>
+          <a href="index.html" class="i18n" data-lang="en">Back to Works</a>
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <!-- Full-width preview -->
+      <section>
+        <div class="embed-wrap">
+          <iframe
+            id="p5-embed"
+            title="p5.js sketch: CellFlow"
+            src="https://editor.p5js.org/Raven2950/full/NE3cS0Bww"
+            loading="lazy"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <p class="embed-caption">
+          <span class="i18n" data-lang="zh">water [W] &nbsp; wall [B] &nbsp; erase [E] &nbsp; raining [R] &nbsp; clear [C]</span>
+          <span class="i18n" data-lang="en">water [W] &nbsp; wall [B] &nbsp; erase [E] &nbsp; raining [R] &nbsp; clear [C]</span>
+        </p>
+      </section>
+
+      <!-- Intro (blockquote style) -->
+      <div class="intro-quote">
+        <p class="i18n" data-lang="zh">
+          水是自然界中最常见却也最难以模拟的物质之一——它没有固定的形态，却始终遵循着重力与压强的法则，在容器与地形之间寻找自己的归宿。本作品以 Daniel Shiffman《Nature of Code》中元胞自动机的思想为起点，尝试用最简单的局部规则，让数万个网格单元"涌现"出水的流动、沉积与压缩行为。你可以在画布上自由绘制地形、注入水流，观察它如何在你构建的世界中自行寻路。
+        </p>
+        <p class="i18n" data-lang="en">
+          Water is one of the most common yet hardest-to-simulate substances in nature—it has no fixed shape, yet always obeys the laws of gravity and pressure, finding its way between containers and terrain. Starting from the cellular automata concepts in Daniel Shiffman's <em>Nature of Code</em>, this work uses the simplest local rules to let tens of thousands of grid cells "emerge" the behavior of water flowing, settling, and compressing. You can freely draw terrain, inject water, and watch it find its own path through the world you've built.
+        </p>
+      </div>
+
+      <!-- 概念 -->
+      <section class="section">
+        <p class="label">
+          <span class="i18n" data-lang="zh">概念｜Inspiration</span>
+          <span class="i18n" data-lang="en">Concept · Inspiration</span>
+        </p>
+        <div class="prose">
+          <p class="i18n" data-lang="zh">
+            元胞自动机的核心魅力在于：每个细胞只关心自己与邻居的状态，却能在整体上产生极其复杂的宏观现象。本作品将这一思想应用于流体模拟——画布被划分为 300×150 的网格，每个格子只有三种身份：空气、水（携带 0 到 1 之间的水量值）或墙壁。没有全局的流体力学方程，没有粒子系统，一切行为都从邻域交互中自然生长出来。这正是元胞自动机"局部规则、全局涌现"的精髓。
+          </p>
+          <p class="i18n" data-lang="en">
+            The core appeal of cellular automata is this: each cell only cares about itself and its neighbors, yet can produce extraordinarily complex macroscopic phenomena. This work applies that idea to fluid simulation—the canvas is divided into a 300×150 grid where each cell has only three identities: air, water (carrying a value between 0 and 1), or wall. No global fluid dynamics equations, no particle systems—all behavior grows naturally from neighborhood interactions. This is the essence of cellular automata: local rules, global emergence.
+          </p>
+        </div>
+      </section>
+
+      <!-- 机制 -->
+      <section class="section">
+        <p class="label">
+          <span class="i18n" data-lang="zh">机制｜Mechanism</span>
+          <span class="i18n" data-lang="en">Mechanism</span>
+        </p>
+        <div class="prose">
+          <p class="i18n" data-lang="zh">每一帧，系统对所有单元格按固定顺序执行四方向的水量传递：</p>
+          <p class="i18n" data-lang="en">Each frame, the system performs four-directional water transfer across all cells in a fixed order:</p>
+
+          <ul class="i18n" data-lang="zh">
+            <li>向下流动（重力）：优先将水向下方单元格转移，模拟重力作用。流量由"稳定分配函数"决定——它计算上下两格在水压平衡时各自应持有的水量，确保底部格子承受更多的水。</li>
+            <li>横向扩散：水平方向上，水量差值的 1/4 作为流量向左右邻居扩散，使水面趋于水平。</li>
+            <li>向上回压：当底部水量充足、形成压缩时，少量水可以向上推挤，模拟密闭空间中的水压效果。</li>
+            <li>压缩常数（<code>COMPRESS = 0.02</code>）：允许单元格在高压下略微"超载"，防止水柱底部出现不自然的瞬间平衡。</li>
+          </ul>
+          <ul class="i18n" data-lang="en">
+            <li>Downward flow (gravity): water transfers to the cell below first, simulating gravity. Flow volume is determined by a "stable distribution function" that calculates hydrostatic equilibrium, ensuring the bottom cell bears more water.</li>
+            <li>Lateral diffusion: horizontally, one quarter of the water difference flows to left and right neighbors, leveling the surface.</li>
+            <li>Upward back-pressure: when the bottom cell is sufficiently full and compressed, a small amount can push upward, simulating hydraulic pressure in enclosed spaces.</li>
+            <li>Compression constant (<code>COMPRESS = 0.02</code>): allows cells to slightly "overload" under high pressure, preventing unnatural instant equilibrium at the base of a water column.</li>
+          </ul>
+
+          <p class="i18n" data-lang="zh">
+            所有流量传递都受到单步最大流量（<code>MAX_FLOW = 0.25</code>）的限制，避免单帧内水量剧烈跳变。每帧执行两轮迭代以加速收敛，最终呈现出水流落下、灌满凹槽、溢出障碍的自然动态。用户可以通过鼠标实时绘制墙壁与水源，或开启"降雨"模式，与这个由简单规则驱动的微型水世界进行交互。
+          </p>
+          <p class="i18n" data-lang="en">
+            All transfers are capped by a per-step maximum flow (<code>MAX_FLOW = 0.25</code>) to prevent sudden jumps. Two iterations per frame accelerate convergence, ultimately producing the natural dynamics of water falling, filling cavities, and overflowing barriers. Users can draw walls and water sources with the mouse in real time, or toggle "rain" mode to interact with this miniature water world driven by simple rules.
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script>
+    (function () {
+      var KEY = "cf-lang";
+      var root = document.documentElement;
+      function setLang(lang) {
+        if (lang !== "zh" && lang !== "en") return;
+        root.setAttribute("data-site-lang", lang);
+        root.lang = lang === "zh" ? "zh-Hans" : "en";
+        try { localStorage.setItem(KEY, lang); } catch (e) {}
+        document.getElementById("lang-zh")?.setAttribute("aria-pressed", lang === "zh" ? "true" : "false");
+        document.getElementById("lang-en")?.setAttribute("aria-pressed", lang === "en" ? "true" : "false");
+      }
+      var saved = null;
+      try { saved = localStorage.getItem(KEY); } catch (e) {}
+      setLang(saved === "en" || saved === "zh" ? saved : "zh");
+      document.querySelectorAll(".lang-btn[data-set-lang]").forEach(function (btn) {
+        btn.addEventListener("click", function () { setLang(btn.getAttribute("data-set-lang")); });
+      });
+    })();
+  </script>
+</body>
+</html>

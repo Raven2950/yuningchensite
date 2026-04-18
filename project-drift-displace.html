@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-Hans" data-site-lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Drift and Displace — Yuning Chen</title>
+  <style>
+    :root {
+      --bg: #111111;
+      --text: #ffffff;
+      --muted: #888888;
+      --line: #2a2a2a;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--muted); }
+    a:hover { border-bottom-color: var(--text); }
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 2.5rem;
+    }
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .subtitle { color: var(--muted); font-size: 0.9rem; font-weight: 400; }
+    .header-right { text-align: right; font-size: 0.9rem; }
+    .header-right .meta { color: var(--muted); margin-top: 0.5rem; }
+    .lang-switch {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      margin-bottom: 0.65rem; user-select: none;
+    }
+    .lang-switch .lang-sep { color: var(--line); font-weight: 300; }
+    .lang-btn {
+      background: none; border: none; padding: 0; font: inherit;
+      color: var(--muted); cursor: pointer; border-bottom: 1px solid transparent;
+    }
+    .lang-btn:hover { color: var(--text); }
+    html[data-site-lang="zh"] .lang-btn[data-set-lang="zh"],
+    html[data-site-lang="en"] .lang-btn[data-set-lang="en"] {
+      color: var(--text); border-bottom-color: var(--text); cursor: default;
+    }
+    html[data-site-lang="zh"] .i18n[data-lang="en"],
+    html[data-site-lang="en"] .i18n[data-lang="zh"] { display: none !important; }
+
+    main { display: flex; flex-direction: column; gap: 2.5rem; }
+
+    .embed-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 5 / 3;
+      background: #000;
+      overflow: hidden;
+    }
+    .embed-wrap iframe {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; border: 0;
+    }
+    .embed-caption {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    .intro-quote {
+      border-left: 2px solid #444;
+      padding-left: 1.25rem;
+      margin: 2rem 0 0;
+      color: #cccccc;
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+    .intro-quote p { margin: 0 0 0.75rem; }
+    .intro-quote p:last-child { margin-bottom: 0; }
+
+    .section { padding-top: 0.25rem; border-top: 1px solid var(--line); }
+    .label {
+      font-size: 0.7rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted);
+      margin: 0 0 0.6rem;
+    }
+    .prose { color: #aaaaaa; }
+    .prose p { margin: 0 0 1rem; }
+
+    @media (max-width: 900px) {
+      .header-right { text-align: left; }
+    }
+  </style>
+  <script>
+    (function () {
+      try {
+        var L = localStorage.getItem("dd-lang");
+        if (L === "en" || L === "zh") {
+          document.documentElement.setAttribute("data-site-lang", L);
+          document.documentElement.lang = L === "zh" ? "zh-Hans" : "en";
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Drift and Displace</h1>
+        <p class="subtitle">
+          <span class="i18n" data-lang="zh">p5.js / 创意编程</span>
+          <span class="i18n" data-lang="en">p5.js / Creative Coding</span>
+        </p>
+      </div>
+      <div class="header-right">
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" class="lang-btn" data-set-lang="zh" id="lang-zh">中文</button>
+          <span class="lang-sep" aria-hidden="true">/</span>
+          <button type="button" class="lang-btn" data-set-lang="en" id="lang-en">EN</button>
+        </div>
+        <p class="back-row">
+          <a href="index.html" class="i18n" data-lang="zh">返回作品</a>
+          <a href="index.html" class="i18n" data-lang="en">Back to Works</a>
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <!-- Full-width preview -->
+      <section>
+        <div class="embed-wrap">
+          <iframe
+            id="p5-embed"
+            title="p5.js sketch: Drift and Displace"
+            src="https://editor.p5js.org/Raven2950/full/rHzCd6j6z"
+            loading="lazy"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <p class="embed-caption">
+          <span class="i18n" data-lang="zh">mouse = human center | hold mouse = expand pressure</span>
+          <span class="i18n" data-lang="en">mouse = human center | hold mouse = expand pressure</span>
+        </p>
+      </section>
+
+      <!-- Intro (blockquote style with left border) -->
+      <div class="intro-quote">
+        <p class="i18n" data-lang="zh">
+          随机性在微观上不可预测，却在时间中聚合成形态。我想借随机游走追问：当人的活动向原本被占据的空间扩张时，生物个体在压力下的那种迟疑、局部、充满噪声的移动，能否被同一种不确定性所描述。
+        </p>
+        <p class="i18n" data-lang="en">
+          Randomness is unpredictable at the micro level, yet aggregates into patterns over time. Through random walks I want to ask: when human activity expands into already-occupied space, can the hesitant, local, noise-filled movement of biological individuals under pressure be described by the same uncertainty?
+        </p>
+      </div>
+
+      <!-- 概念 -->
+      <section class="section">
+        <p class="label">
+          <span class="i18n" data-lang="zh">概念｜Inspiration</span>
+          <span class="i18n" data-lang="en">Concept · Inspiration</span>
+        </p>
+        <div class="prose">
+          <p class="i18n" data-lang="zh">
+            从一开始，我就想用随机游走来建模人类空间扩张与生物群落之间的关系。我不想把随机游走只当成纯视觉或抽象系统，而关心它内在的不确定性，能否用来描述生物个体在外部压力下的行为——尤其是当人类活动向原本已被占据的空间推进时。生物体的移动往往不是完全理性、可预测的：常常是局部的、迟疑的、被噪声牵引的。随机游走可以很自然地对应这种行为：每一帧走一步随机位移；微观上无法预测；但时间拉长后，模式会涌现。因此它适合作为「生物个体」的起点，而不是僵硬、规则驱动的代理。
+          </p>
+          <p class="i18n" data-lang="en">
+            From the start, I wanted to use random walks to model the relationship between human spatial expansion and biological communities. I didn't want to treat random walks merely as visual or abstract systems—I cared whether their inherent uncertainty could describe the behavior of organisms under external pressure, especially when human activity encroaches on already-occupied space. Biological movement is rarely fully rational or predictable: it tends to be local, hesitant, drawn by noise. Random walks correspond naturally to this behavior—each frame takes one random step; microscopically unpredictable; but over time, patterns emerge. This makes it a fitting starting point for "biological individuals," rather than rigid, rule-driven agents.
+          </p>
+        </div>
+      </section>
+
+      <!-- 机制 -->
+      <section class="section">
+        <p class="label">
+          <span class="i18n" data-lang="zh">机制｜Mechanism</span>
+          <span class="i18n" data-lang="en">Mechanism</span>
+        </p>
+        <div class="prose">
+          <p class="i18n" data-lang="zh">
+            从个体到群落——完全独立、互不关联的随机游走不足以表达「生物群落」。因此我把游走者组织成群落结构：每个群落有一个中心位置；个体相对该中心定位；群落整体可以移动，而个体仍在内部继续做随机游走。在这里，随机游走负责内部运动，而不是单独决定整体迁徙方向。人类扩张作为压力场——人类空间用一个由鼠标控制的中心表示，并产生向外扩张的压力场。当智能体接近该场时：它们仍执行随机游走，但会获得基于概率的、背离人类中心的方向偏置。于是形成带偏置的随机游走（动态概率）：随机性保留，但受与人类活动距离的牵引。当足够多的边缘智能体受影响时，它们的回避方向被累加，用来推动群落中心，从而产生集体迁徙。压力消失之后——除了位移，我还想呈现压力解除之后发生的事：有压力时，群落被推开；压力消失后，群落尝试回到原始位置；若该位置仍不安全，则迁徙到新的区域。
+          </p>
+          <p class="i18n" data-lang="en">
+            From individual to colony—completely independent, unrelated random walks are insufficient to express "biological communities." So I organize walkers into colony structures: each colony has a central position; individuals are positioned relative to that center; the colony as a whole can move, while individuals continue their random walks internally. Here, random walks drive internal motion rather than determining overall migration direction. Human expansion as a pressure field—human space is represented by a mouse-controlled center that generates an outward-expanding pressure field. When agents approach this field, they still perform random walks but receive probability-based directional bias away from the human center, forming biased random walks with dynamic probability: randomness preserved, but pulled by proximity to human activity. When enough edge agents are affected, their avoidance directions accumulate to push the colony center, producing collective migration. After pressure subsides—beyond displacement, I also wanted to show what happens when pressure is released: under pressure, colonies are pushed away; when pressure disappears, colonies attempt to return to their original positions; if those positions remain unsafe, they migrate to new areas.
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script>
+    (function () {
+      var KEY = "dd-lang";
+      var root = document.documentElement;
+      function setLang(lang) {
+        if (lang !== "zh" && lang !== "en") return;
+        root.setAttribute("data-site-lang", lang);
+        root.lang = lang === "zh" ? "zh-Hans" : "en";
+        try { localStorage.setItem(KEY, lang); } catch (e) {}
+        document.getElementById("lang-zh")?.setAttribute("aria-pressed", lang === "zh" ? "true" : "false");
+        document.getElementById("lang-en")?.setAttribute("aria-pressed", lang === "en" ? "true" : "false");
+      }
+      var saved = null;
+      try { saved = localStorage.getItem(KEY); } catch (e) {}
+      setLang(saved === "en" || saved === "zh" ? saved : "zh");
+      document.querySelectorAll(".lang-btn[data-set-lang]").forEach(function (btn) {
+        btn.addEventListener("click", function () { setLang(btn.getAttribute("data-set-lang")); });
+      });
+    })();
+  </script>
+</body>
+</html>

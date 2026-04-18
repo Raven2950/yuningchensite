@@ -5,22 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Creative Coding - Yuning Chen</title>
     <style>
-        body, html { margin: 0; padding: 0; background-color: #111; color: #fff; font-family: 'Helvetica Neue', Arial, sans-serif; }
-        
+        body, html { margin: 0; padding: 0; background-color: #111; color: #fff; font-family: 'Helvetica Neue', Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+
         .nav-header { padding: 4vw; border-bottom: 1px solid #333; margin-bottom: 50px; display: flex; justify-content: space-between; align-items: center; }
         .category-title { font-size: 3rem; font-weight: normal; margin: 0; border-left: 2px solid #fff; padding-left: 20px; }
         .back-btn { color: #888; text-decoration: none; font-size: 1rem; transition: color 0.3s; }
         .back-btn:hover { color: #fff; }
 
-        .works-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4vw; padding: 0 4vw 10vh 4vw; max-width: 1600px; margin: 0 auto; }
-        
+        .works-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3.5vw;
+            padding: 0 4vw 10vh 4vw;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
         .work-item { text-decoration: none; color: inherit; display: block; }
-        .work-item:hover .work-cover { opacity: 0.8; }
-        
-        .work-cover { width: 100%; aspect-ratio: 1/1; background-color: #000; overflow: hidden; margin-bottom: 15px; transition: opacity 0.3s; }
-        .work-cover iframe, .work-cover img { width: 100%; height: 100%; object-fit: cover; border: none; pointer-events: none; }
-        
-        .work-info { display: flex; justify-content: space-between; font-size: 0.9rem; font-family: monospace; color: #ccc; }
+        .work-item:hover .work-cover { opacity: 0.85; }
+
+        .work-cover {
+            width: 100%;
+            background-color: #000;
+            overflow: hidden;
+            margin-bottom: 12px;
+            transition: opacity 0.3s;
+        }
+        .work-cover iframe, .work-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: none;
+            pointer-events: none;
+            display: block;
+        }
+
+        .work-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-family: 'Courier New', monospace;
+            color: #999;
+            letter-spacing: 0.02em;
+        }
+
+        .work-item.span-full {
+            grid-column: 1 / -1;
+            max-width: 58%;
+        }
+
+        @media (max-width: 768px) {
+            .works-grid { grid-template-columns: 1fr; }
+            .work-item.span-full { max-width: 100%; }
+        }
     </style>
 </head>
 <body>
@@ -31,8 +69,10 @@
     </div>
 
     <div class="works-grid">
+
+        <!-- Row 1: 1:1 + 5:3 -->
         <a href="project-force-vector.html" class="work-item">
-            <div class="work-cover">
+            <div class="work-cover" style="aspect-ratio: 1 / 1;">
                 <iframe src="https://editor.p5js.org/Raven2950/present/lGwVVvIjH" scrolling="no"></iframe>
             </div>
             <div class="work-info">
@@ -41,14 +81,48 @@
             </div>
         </a>
 
+        <a href="project-drift-displace.html" class="work-item">
+            <div class="work-cover" style="aspect-ratio: 5 / 3;">
+                <iframe src="https://editor.p5js.org/Raven2950/full/rHzCd6j6z" scrolling="no"></iframe>
+            </div>
+            <div class="work-info">
+                <span>Drift and Displace</span>
+                <span>2/2026</span>
+            </div>
+        </a>
+
+        <!-- Row 2: 2:3 + 4:5, both portrait -->
         <a href="project-rain-words.html" class="work-item">
-            <div class="work-cover" style="background: #2b2bdc;">
-               </div>
+            <div class="work-cover" style="aspect-ratio: 1 / 1;">
+                <iframe src="https://editor.p5js.org/Raven2950/full/Z4D85Dntf" scrolling="no"></iframe>
+            </div>
             <div class="work-info">
                 <span>Rain my Words</span>
                 <span>3/2026</span>
             </div>
         </a>
+
+        <a href="project-rain-wuyang.html" class="work-item">
+            <div class="work-cover" style="aspect-ratio: 4 / 5;">
+                <iframe src="https://editor.p5js.org/Raven2950/full/GzJzmyWJE" scrolling="no"></iframe>
+            </div>
+            <div class="work-info">
+                <span>雨落无恙</span>
+                <span>3/2026</span>
+            </div>
+        </a>
+
+        <!-- Row 3: 2:1 wide -->
+        <a href="project-cellflow.html" class="work-item span-full">
+            <div class="work-cover" style="aspect-ratio: 2 / 1;">
+                <iframe src="https://editor.p5js.org/Raven2950/full/NE3cS0Bww" scrolling="no"></iframe>
+            </div>
+            <div class="work-info">
+                <span>胞流 CellFlow</span>
+                <span>4/2026</span>
+            </div>
+        </a>
+
     </div>
 
 </body>
